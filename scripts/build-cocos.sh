@@ -11,6 +11,9 @@ node "$ROOT/scripts/sync-core.mjs"
 "$COCOS" --project "$ROOT/apps/cocos" --build "platform=${PLATFORM};debug=true" > "$LOG" 2>&1 || true
 
 if grep -q "build Task (${PLATFORM}) Finished" "$LOG"; then
+  if [ "$PLATFORM" = "wechatgame" ]; then
+    node "$ROOT/scripts/patch-wechat-appid.mjs"
+  fi
   echo "build ok: $ROOT/apps/cocos/build/${PLATFORM}"
   exit 0
 fi

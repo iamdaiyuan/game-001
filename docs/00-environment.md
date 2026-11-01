@@ -62,13 +62,15 @@ douyinide miniapp-image-screenshot -c OpenCode --window-id 4 \
 ```
 
 产物：`apps/cocos/build/wechatgame/`  
-当前阻塞：微信开发者工具 CLI 报“服务端口已关闭”，需手动在：
+已配置 AppID：`wx7266351d42743bbe`（`apps/cocos/build-config.wechat.json`，构建后由 `scripts/patch-wechat-appid.mjs` 写入）。
 
-```
-微信开发者工具 → 设置 → 安全设置 → 服务端口 → 开启
+当前阻塞：微信开发者工具 CLI 报“需要重新登录”。请先在开发者工具里扫码登录，或运行：
+
+```bash
+/Applications/wechatwebdevtools.app/Contents/MacOS/cli login
 ```
 
-开启后可用：
+登录后可用：
 
 ```bash
 /Applications/wechatwebdevtools.app/Contents/MacOS/cli open \

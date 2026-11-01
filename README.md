@@ -16,7 +16,7 @@
 | AI Orchestrator / 任务图 | ✅ `ai/` |
 | 纯逻辑核心 `@xcyh/core` | 🚧 进行中 |
 | Cocos Creator 3.8 工程 | ✅ `apps/cocos/`（3.8.8，代码生成最小场景） |
-| 微信开发者工具 | ✅ 已安装；CLI 服务端口需在设置中开启 |
+| 微信开发者工具 | ✅ 已安装；AppID 已配置；待扫码登录 |
 | 抖音开发者工具 + Skill | ✅ 已安装；`douyinide` 在线；Cocos 抖音包已编译并截图验证 |
 
 ## 目录
@@ -52,7 +52,7 @@ cd prototype/browser
 ## 环境状态
 
 - **Cocos Creator**：`/Applications/Cocos/Creator/3.8.8/CocosCreator.app` 可用；`apps/cocos/` 已可构建 web-mobile / wechatgame / bytedance-mini-game。
-- **微信开发者工具**：已安装；CLI 报“服务端口已关闭”，需在 设置 → 安全设置 开启后才能用 `cli preview/open`。
+- **微信开发者工具**：已安装；服务端口已开启；AppID `wx7266351d42743bbe` 已写入构建；CLI 当前报“需要重新登录”，需扫码登录后做 `cli open`。
 - **抖音开发者工具**：已安装；`douyinide` 可用，IDE 在线；Cocos 抖音包已编译并通过截图 + console 探针验证。
 
 ## 下一步

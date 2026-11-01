@@ -1,0 +1,4 @@
+{
+  "appid": "wx7266351d42743bbe",
+  "note": "微信小游戏 AppID；构建后由 scripts/patch-wechat-appid.mjs 写入 project.config.json"
+}

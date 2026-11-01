@@ -18,6 +18,16 @@ open -a "/Applications/Cocos/Creator/3.8.8/CocosCreator.app" --args --project "$
 
 > 场景来自一个最小 Cocos 3.8 2D 模板，避免手工拖拽；后续新增 UI 优先用代码/配置生成。
 
+## 微信 AppID
+
+`build-config.wechat.json` 保存微信小游戏 AppID：
+
+```json
+{ "appid": "wx7266351d42743bbe" }
+```
+
+`npm run build:wechat` 会在构建成功后调用 `scripts/patch-wechat-appid.mjs`，把 AppID 写入 `build/wechatgame/project.config.json`。
+
 ## 构建
 
 ```bash
