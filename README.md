@@ -15,9 +15,9 @@
 | 浏览器可玩原型 | ✅ `prototype/browser/` |
 | AI Orchestrator / 任务图 | ✅ `ai/` |
 | 纯逻辑核心 `@xcyh/core` | 🚧 进行中 |
-| Cocos Creator 3.8 工程 | ⏳ 等待 Creator 安装确认 |
-| 微信开发者工具 | ✅ CLI 可用 |
-| 抖音开发者工具 + Skill | ⏳ 已下载 pkg，未安装 / `douyinide` 未找到 |
+| Cocos Creator 3.8 工程 | ✅ `apps/cocos/`（3.8.8，代码生成最小场景） |
+| 微信开发者工具 | ✅ 已安装；CLI 服务端口需在设置中开启 |
+| 抖音开发者工具 + Skill | ✅ 已安装；`douyinide` 在线；Cocos 抖音包已编译并截图验证 |
 
 ## 目录
 
@@ -27,6 +27,9 @@ docs/                     # 产品、市场、AI 排程文档
 prototype/browser/        # 可玩浏览器原型（设计参照）
 ai/                       # Orchestrator、任务图、Gate、任务包 schema
 packages/core/            # 平台无关的游戏核心逻辑（TypeScript）
+apps/cocos/               # Cocos Creator 3.8.8 表现层
+apps/douyin-smoke/        # 抖音开发者工具 smoke test
+scripts/                  # core 同步 / Cocos CLI 构建
 ```
 
 ## 快速体验浏览器原型
@@ -48,13 +51,13 @@ cd prototype/browser
 
 ## 环境状态
 
-- **Cocos Creator**：`/Applications` 目前只有 `CocosDashboard.app`，未找到 `Cocos Creator.app`。需要确认 Dashboard 中是否已安装 3.8.x Creator，或提供实际安装路径。
-- **微信开发者工具**：`/Applications/wechatwebdevtools.app/Contents/MacOS/cli` 可用。
-- **抖音开发者工具**：`~/Downloads/抖音开发者工具-4.5.7-arm64.pkg.download/` 里有 pkg，但 `/Applications` 未找到 App，`douyinide` 命令不存在。需要安装 4.5.7+ 并在终端运行 `douyinide` 完成 Skill 安装/授权。
+- **Cocos Creator**：`/Applications/Cocos/Creator/3.8.8/CocosCreator.app` 可用；`apps/cocos/` 已可构建 web-mobile / wechatgame / bytedance-mini-game。
+- **微信开发者工具**：已安装；CLI 报“服务端口已关闭”，需在 设置 → 安全设置 开启后才能用 `cli preview/open`。
+- **抖音开发者工具**：已安装；`douyinide` 可用，IDE 在线；Cocos 抖音包已编译并通过截图 + console 探针验证。
 
 ## 下一步
 
-1. 确认 Cocos Creator 实际安装路径，创建 `apps/cocos/` 工程。
-2. 安装抖音开发者工具 4.5.7+，运行 `douyinide` 获取 Skill 目录。
-3. 完成 `@xcyh/core` 的核心逻辑与测试。
-4. 用 Cocos 薄壳接 `@xcyh/core`，跑通 10 分钟二合切片。
+1. 开启微信开发者工具服务端口，验证 `build/wechatgame` 的编译/预览。
+2. 把 Cocos 切片从“棋盘 + HUD”扩展到订单/改造/剧情。
+3. 把 `@xcyh/core` 的 12 单/3 改造/6 剧情接到 Cocos 表现层。
+4. 用抖音 Skill 做首次真机/模拟器交互回归。

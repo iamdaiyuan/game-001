@@ -7,6 +7,10 @@
     "typecheck": "npm --prefix packages/core run typecheck",
     "test": "npm --prefix packages/core test",
     "simulate": "npm --prefix packages/core run simulate",
-    "ci": "npm run typecheck && npm test && npm run simulate"
+    "ci": "npm run typecheck && npm test && npm run simulate",
+    "sync:core": "node scripts/sync-core.mjs",
+    "build:web": "bash scripts/build-cocos.sh web-mobile",
+    "build:wechat": "bash scripts/build-cocos.sh wechatgame",
+    "build:douyin": "bash scripts/build-cocos.sh bytedance-mini-game"
   }
 }

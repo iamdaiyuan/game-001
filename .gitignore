@@ -10,7 +10,6 @@ temp/
 local/
 build/
 profiles/
-settings/
 native/
 
 # WeChat / Douyin devtools

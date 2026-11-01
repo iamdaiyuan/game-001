@@ -5,82 +5,102 @@
 
 ## 已就绪
 
-| 工具 | 路径 / 版本 | 备注 |
+| 工具 | 路径 / 版本 | 状态 |
 |---|---|---|
-| Git | 2.55.0 | `git@github.com:iamdaiyuan/game-001.git` 可 push |
-| GitHub CLI | `gh` 已登录 `iamdaiyuan` | repo scope |
-| Node | v26.9.0 | `packages/core` 使用 |
-| npm | 11.19.1 | `npm install` 可用 |
-| 微信开发者工具 | `/Applications/wechatwebdevtools.app` | CLI 在 `Contents/MacOS/cli` |
-| Cocos Dashboard | `/Applications/CocosDashboard.app` v2.2.2 | 仅 Dashboard，未找到 Creator |
+| Git | 2.55.0 | ✅ `git@github.com:iamdaiyuan/game-001.git` 可 push |
+| GitHub CLI | `gh` 已登录 `iamdaiyuan` | ✅ repo scope |
+| Node | v26.9.0 | ✅ |
+| npm | 11.19.1 | ✅ |
+| Cocos Creator | `/Applications/Cocos/Creator/3.8.8/CocosCreator.app` | ✅ 3.8.8 |
+| 微信开发者工具 | `/Applications/wechatwebdevtools.app` | ✅ 已安装；CLI 服务端口需开启 |
+| 抖音开发者工具 | `/Applications/抖音开发者工具.app` | ✅ 已安装 4.5.7+ |
+| 抖音 Skill | `douyinide` @ `~/.local/bin/douyinide` | ✅ v0.0.1，IDE 在线 |
 
-## 待确认 / 待安装
+## 已验证
 
-### 1. Cocos Creator 3.8.x
+### Cocos → Web
 
-当前在以下位置未找到 `Cocos Creator.app`：
+```bash
+/Applications/Cocos/Creator/3.8.8/CocosCreator.app/Contents/MacOS/CocosCreator \
+  --project "$PWD/apps/cocos" --build "platform=web-mobile;debug=true"
+```
 
-- `/Applications`
-- `~/Applications`
-- `~/Library/Application Support/Cocos*`
-- `~/Downloads`（只有 `CocosDashboard-v2.2.2-mac-091515.dmg`）
+产物：`apps/cocos/build/web-mobile/`  
+验证：Playwright 截图，标题 / HUD / 7×7 棋盘 / 3 按钮正常。
 
-**需要确认**：
+### Cocos → 抖音小游戏
 
-1. 是否已在 Cocos Dashboard 里安装 3.8.x Creator？
-2. 如果已安装，请提供实际路径，例如：
-   ```bash
-   mdfind "kMDItemFSName == 'CocosCreator.app'"
-   ```
-   或 Dashboard 里的“安装路径”。
-3. 如果未安装，请在 Dashboard 里安装 **Cocos Creator 3.8.x**，并打开一次空项目。
+```bash
+--build "platform=bytedance-mini-game;debug=true"
+```
 
-### 2. 抖音开发者工具 + Skill
+产物：`apps/cocos/build/bytedance-mini-game/`
 
-当前状态：
+`douyinide` 验证链：
 
-- 安装包已下载：
-  `~/Downloads/抖音开发者工具-4.5.7-arm64.pkg.download/抖音开发者工具-4.5.7-arm64.pkg`
-- `/Applications` 中未找到 `抖音开发者工具.app`
-- 终端 `douyinide` 命令不存在
+```bash
+douyinide open-project-window -c OpenCode \
+  --path /Users/daiyuan/Game/game-001/apps/cocos/build/bytedance-mini-game \
+  --type microgame
+douyinide simulator-compile -c OpenCode --window-id 4
+douyinide miniapp-tap -c OpenCode --window-id 4 --x 77 --y 770
+douyinide miniapp-get-console-messages -c OpenCode --window-id 4
+douyinide miniapp-image-screenshot -c OpenCode --window-id 4 \
+  --file-name /Users/daiyuan/Game/game-001/artifacts/cocos-douyin-tap.png
+```
 
-**需要执行**：
+证据：
 
-1. 双击 pkg 完成安装（需要 4.5.7+）。
-2. 启动一次抖音开发者工具，完成登录。
-3. 在终端运行：
-   ```bash
-   douyinide
-   ```
-   记录输出的 Skill 安装目录和版本号。
-4. 把 Skill 目录加入编程助手配置，或导出 `douyinide-skill-<version>.zip` 导入。
-5. 验证：
-   ```bash
-   douyinide check-ide-status -c <clientName>
-   ```
+- 截图：`artifacts/cocos-douyin-tap.png`
+- console：`[xcyh] producer old true old_1 59`
+- 画面：能量 60 → 59，棋盘出现「破布 L1」，底部状态「获得 破布」
 
-> 官方文档：https://developer.open-douyin.com/docs/resource/zh-CN/mini-app/develop/dev-tools/developer-instrument/ai/ide-skill
+### Cocos → 微信小游戏
 
-## 已完成的仓库初始化
+```bash
+--build "platform=wechatgame;debug=true"
+```
 
-- 文档：`docs/01`–`05`
-- 浏览器原型：`prototype/browser/`
-- AI Orchestrator：`ai/orchestrator.md`
-- 任务图：`ai/task-graph.yaml`
-- Gate：`ai/gates.md`
-- 任务包 schema：`ai/task-packet.schema.json`
-- 核心逻辑：`packages/core/`
-- CI：`.github/workflows/core.yml`
+产物：`apps/cocos/build/wechatgame/`  
+当前阻塞：微信开发者工具 CLI 报“服务端口已关闭”，需手动在：
 
-## 验证命令
+```
+微信开发者工具 → 设置 → 安全设置 → 服务端口 → 开启
+```
+
+开启后可用：
+
+```bash
+/Applications/wechatwebdevtools.app/Contents/MacOS/cli open \
+  --project /Users/daiyuan/Game/game-001/apps/cocos/build/wechatgame
+```
+
+## Cocos CLI 已知行为
+
+Cocos Creator 3.8.8 在 macOS 命令行构建成功后可能返回 exit code `36`，同时日志里有：
+
+```
+build Task (web-mobile) Finished in ...
+```
+
+判断成功以日志里的 `build Task (...) Finished` 和产物目录为准。
+
+## 抖音 Skill 说明
+
+- `douyinide` 已可用，`check-ide-status -c OpenCode` 返回 `ideOnline: true`。
+- 小游戏只有 Canvas，没有页面元素；自动化必须用坐标 + 状态探针（console / 项目调试日志 / 截图）。
+- 本项目已在 Cocos 脚本中输出 `[xcyh] producer ...` / `[xcyh] merge ...` 探针。
+
+## 当前验证命令
 
 ```bash
 cd game-001
-npm run ci
+npm run ci          # 13 个单测 + 无头模拟
+npm run sync:core   # 同步 core 到 Cocos assets
 ```
 
-当前结果：
+## 相关文档
 
-- `tsc --noEmit` 通过
-- 13 个单测通过
-- 无头模拟：12 单 + 3 改造可通关（约 202 个动作）
+- `apps/cocos/README.md`：Cocos 场景、构建、验证
+- `docs/04-ai-schedule.md`：AI 原生排程
+- `ai/task-graph.yaml`：C0–C6 目标图
