@@ -1,0 +1,189 @@
+# 《小城烟火》AI 原生任务图
+# 人类只维护 Outcome / Acceptance / Gate；
+# Orchestrator 在运行时把每个 Sprint 展开为 Task Packet。
+version: 1
+project: 小城烟火
+repo: iamdaiyuan/game-001
+mode: 24/7
+start: 2026-11-02T09:00:00+08:00
+deadline: 2026-11-16T09:00:00+08:00
+budget:
+  compute_usd: "2000-5000"
+  human_gate_hours: "4-8"
+
+principles:
+  - 人类不做任务分解，只定义 Outcome / Acceptance / Gate
+  - 每个任务必须有可执行验收
+  - 逻辑优先进入 packages/core，Cocos 只做表现层
+  - 不直接改 main，全部走 worktree + CI
+  - P0/安全/合规/版权问题立即升级人类
+
+agents:
+  orchestrator:
+    role: 任务图/调度/冲突/升级
+    autonomy: L3
+  product:
+    role: specs/config/UX/acceptance
+    autonomy: L2
+  architecture:
+    role: 仓库/接口/CI/依赖
+    autonomy: L3
+  client_a:
+    role: Cocos 框架/二合/改造/性能
+    autonomy: L3
+  client_b:
+    role: 订单/UI/剧情/分享/平台 UI
+    autonomy: L3
+  client_c:
+    role: 经济/存档/埋点/支付广告 SDK
+    autonomy: L3
+  art_director:
+    role: 风格包/art bible/风格 Critic
+    autonomy: L2
+  art_generator:
+    role: 物品/店铺/角色/UI/分享卡
+    autonomy: L2
+  audio:
+    role: 音乐/音效/配音/混音
+    autonomy: L2
+  backend:
+    role: 登录/存档/配置/数据看板
+    autonomy: L3
+  qa:
+    role: 测试生成/自动化/设备矩阵
+    autonomy: L3
+  build:
+    role: CI/CD/Cocos/微信构建/包体/性能
+    autonomy: L3
+  critic:
+    role: 代码/设计/安全/合规审查
+    autonomy: L3
+  human_gate:
+    role: 品味/范围/合规/账号/用户/最终决策
+    autonomy: L0
+
+gates:
+  - id: G1
+    at_hour: 24
+    decision: 方向/风格/任务图
+    owner: human
+  - id: G2
+    at_hour: 72
+    decision: 二合手感
+    owner: human
+  - id: G3
+    at_hour: 120
+    decision: 订单节奏
+    owner: human
+  - id: G4
+    at_hour: 168
+    decision: 改造品味
+    owner: human
+  - id: G5
+    at_hour: 216
+    decision: 完整度
+    owner: human
+  - id: G6
+    at_hour: 264
+    decision: 可测性
+    owner: human
+  - id: G7
+    at_hour: 312
+    decision: 是否进 20 人
+    owner: human
+  - id: G8
+    at_hour: 336
+    decision: Go/Iterate/Kill
+    owner: human
+
+sprints:
+  - id: C0
+    name: Bootstrap
+    hours: 0-24
+    outcome: 仓库/CI/Cocos 空构建/机器可读 specs/风格包/30 人 waitlist
+    acceptance:
+      - wechat build 通过，主包 < 4MB
+      - specs 覆盖 30 物品/12 订单/9 改造/6 剧情
+      - 每个功能有对应验收测试
+      - 风格包通过 Art Critic
+    agents: [orchestrator, architecture, product, art_director, build, qa]
+    gate: G1
+  - id: C1
+    name: Core Merge
+    hours: 24-72
+    outcome: 7x7 二合/2 产出器/30 物品/HUD/合成 VFX
+    acceptance:
+      - 6 级链条可合成
+      - 最高级不可合成
+      - 30 次产出无异常
+      - 中端安卓 >= 50fps
+    agents: [orchestrator, architecture, client_a, client_b, client_c, art_generator, audio, qa, build]
+    gate: G2
+  - id: C2
+    name: Orders
+    hours: 72-120
+    outcome: 12 订单/3 槽/经济/体力/仓库/教学 1-4/15 分钟循环
+    acceptance:
+      - 12 单可交付
+      - 3 槽逐步解锁
+      - 2 单后食材篮解锁
+      - 5-7 分钟攒够 300 铜钱
+    agents: [orchestrator, product, client_a, client_b, client_c, art_generator, audio, qa]
+    gate: G3
+  - id: C3
+    name: Renovation
+    hours: 120-168
+    outcome: 3 区域 x 3 方案/前后对比/分享卡/6 剧情/25 分钟
+    acceptance:
+      - 9 方案可选
+      - 前后对比流畅，分享卡 < 2s
+      - 6 节点可触发/可跳过
+      - 教学 1-5 完整
+    agents: [orchestrator, client_a, client_b, client_c, art_generator, audio, qa]
+    gate: G4
+  - id: C4
+    name: Full Flow
+    hours: 168-216
+    outcome: 30 分钟全流程/首充/广告/背包/设置/微信 SDK/埋点/RC1
+    acceptance:
+      - 序章到结局完整
+      - 首充/广告/分享/问卷可用
+      - 支付沙盒/激励视频回调正确
+      - 埋点 100% 覆盖
+    agents: [orchestrator, client_a, client_b, client_c, backend, art_generator, audio, qa, build]
+    gate: G5
+  - id: C5
+    name: QA/RC
+    hours: 216-264
+    outcome: 包体/性能/适配/6 设备/5-8 人内测/RC2
+    acceptance:
+      - 主包 < 4MB，总包 < 30MB
+      - 中端安卓 >= 50fps，崩溃 < 1%
+      - 埋点与后台一致
+      - 5-8 人内测无 P0
+    agents: [orchestrator, build, qa, client_a, backend, art_generator]
+    gate: G6
+  - id: C6
+    name: User Test
+    hours: 264-312
+    outcome: 8-12 人测试/P0-P1 修复/RC3
+    acceptance:
+      - 8-12 人完成
+      - P0=0，P1<=3
+      - 关键指标有方向性结论
+    agents: [orchestrator, qa, client_a, client_b, client_c, product]
+    gate: G7
+  - id: G1
+    name: G1 Buffer
+    hours: 312-336
+    outcome: 20 人测试/G1 报告/Go/Iterate/Kill
+    acceptance:
+      - 20 人完成
+      - G1 指标表完整
+      - 报告/问题清单/决议
+    agents: [orchestrator, qa, backend, product, human_gate]
+    gate: G8
+
+current_blockers:
+  - Cocos Creator app not found; only CocosDashboard.app present
+  - Douyin devtools pkg downloaded but not installed; douyinide CLI missing

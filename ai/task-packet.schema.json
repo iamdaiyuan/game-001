@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xcyh.local/schemas/task-packet.schema.json",
+  "title": "XCYH AI Task Packet",
+  "type": "object",
+  "required": [
+    "id",
+    "sprint",
+    "goal",
+    "owner",
+    "reviewer",
+    "inputs",
+    "constraints",
+    "acceptance",
+    "outputs",
+    "rollback"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9]+-[A-Z0-9-]+$"
+    },
+    "sprint": {
+      "type": "string",
+      "enum": ["C0", "C1", "C2", "C3", "C4", "C5", "C6", "G1"]
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 8
+    },
+    "owner": {
+      "type": "string",
+      "enum": [
+        "orchestrator",
+        "product",
+        "architecture",
+        "client-a",
+        "client-b",
+        "client-c",
+        "art-director",
+        "art-generator",
+        "audio",
+        "backend",
+        "qa",
+        "build",
+        "critic"
+      ]
+    },
+    "reviewer": {
+      "type": "string",
+      "enum": ["critic", "architecture", "qa", "build", "art-director"]
+    },
+    "inputs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "acceptance": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(unit|integration|ui|build|perf|test|manual):"
+      },
+      "minItems": 1
+    },
+    "outputs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "deadline": {
+      "type": "string"
+    },
+    "rollback": {
+      "type": "string",
+      "minLength": 3
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

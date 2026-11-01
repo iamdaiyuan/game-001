@@ -1,0 +1,12 @@
+{
+  "name": "xcyh",
+  "version": "0.0.1",
+  "private": true,
+  "description": "小城烟火 · AI 原生小游戏项目",
+  "scripts": {
+    "typecheck": "npm --prefix packages/core run typecheck",
+    "test": "npm --prefix packages/core test",
+    "simulate": "npm --prefix packages/core run simulate",
+    "ci": "npm run typecheck && npm test && npm run simulate"
+  }
+}

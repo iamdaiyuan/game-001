@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7efe3" />
+  <title>小城烟火 · Demo</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="phone">
+      <!-- 启动 -->
+      <section class="screen active" id="screen-boot">
+        <div class="boot-sun"></div>
+        <div class="boot-grain"></div>
+        <div class="boot-brand">
+          <div class="boot-kicker">A COZY MERGE STORY</div>
+          <h1 class="logo">小城<span>烟火</span></h1>
+          <p class="boot-sub">把一条老街重新点亮</p>
+        </div>
+        <div class="boot-card">
+          <div class="boot-line">二合 · 经营 · 改造</div>
+          <button class="btn primary big" id="btn-new">开始新游戏</button>
+          <button class="btn ghost big hidden" id="btn-continue">继续游戏</button>
+          <p class="boot-hint" id="boot-hint">30 分钟 · 一章 · 建议竖屏体验</p>
+        </div>
+        <div class="boot-foot">DEMO 0.1 · 游戏画面均为实时渲染</div>
+      </section>
+
+      <!-- 序章 -->
+      <section class="screen" id="screen-prologue">
+        <div class="prologue-top">
+          <span class="prologue-brand">小城烟火</span>
+          <button class="text-btn" id="prologue-skip">跳过序章</button>
+        </div>
+        <div class="prologue-art art-city" id="prologue-art"></div>
+        <div class="prologue-copy">
+          <div class="prologue-kicker" id="prologue-kicker">凌晨 1:00</div>
+          <h2 class="prologue-title" id="prologue-title">她关掉了电脑</h2>
+          <p class="prologue-text" id="prologue-text">大城市的灯还亮着，但她不想再等了。</p>
+          <div class="prologue-dots">
+            <span class="prologue-dot active"></span>
+            <span class="prologue-dot"></span>
+            <span class="prologue-dot"></span>
+            <span class="prologue-dot"></span>
+          </div>
+        </div>
+        <div class="prologue-foot">
+          <button class="btn primary big" id="prologue-btn">继续</button>
+        </div>
+      </section>
+
+      <!-- 主游戏 -->
+      <section class="screen" id="screen-game">
+        <header class="hud">
+          <div class="hud-group">
+            <span class="hud-pill"><span class="hud-icon">🪙</span><b id="hud-coins">0</b></span>
+            <button class="hud-pill energy-pill hud-btn" id="btn-energy" aria-label="体力">
+              <span class="hud-icon">⚡</span><b id="hud-energy">60/100</b>
+              <i class="energy-track"><i id="hud-energy-bar"></i></i>
+            </button>
+            <button class="hud-pill hud-btn" id="btn-diamonds" aria-label="钻石">
+              <span class="hud-icon">💎</span><b id="hud-diamonds">0</b>
+            </button>
+          </div>
+          <div class="hud-actions">
+            <button class="icon-btn" id="btn-bag" aria-label="背包">🎒</button>
+            <button class="icon-btn" id="btn-settings" aria-label="设置">⚙️</button>
+          </div>
+        </header>
+
+        <main class="game-main">
+          <div class="shop-strip">
+            <div class="shop-scene" id="shop-scene"></div>
+            <div class="shop-caption">
+              <span id="chapter-label">第 1 章 · 外婆的杂货铺</span>
+              <span id="chapter-progress">0/3</span>
+            </div>
+          </div>
+
+          <div class="board-head">
+            <span>合成台 · 点两块一样的合在一起</span>
+            <button class="text-btn" id="btn-organize">整理</button>
+          </div>
+          <div class="board" id="board"></div>
+          <div class="orders" id="orders"></div>
+        </main>
+
+        <footer class="actions">
+          <button class="action-btn" data-producer="old">
+            <span class="action-emoji">📦</span>
+            <span class="action-label">旧物箱</span>
+          </button>
+          <button class="action-btn" data-producer="food">
+            <span class="action-emoji">🧺</span>
+            <span class="action-label">食材篮</span>
+          </button>
+          <button class="action-btn primary" id="btn-renovate">
+            <span class="action-emoji">🔨</span>
+            <span>改造</span>
+          </button>
+        </footer>
+
+      </section>
+
+      <!-- 结局 -->
+      <section class="screen" id="screen-ending">
+        <div class="ending-wrap">
+          <div class="ending-kicker">第 1 章 · 完成</div>
+          <h1>青溪街 17 号，<br />重新开张。</h1>
+          <p class="ending-sub">外婆的店不大，但装得下几个人，就够了。</p>
+          <div class="ending-stats" id="ending-stats"></div>
+          <div class="ending-card">
+            <h3>下一章：阿芬理发店</h3>
+            <p>单亲妈妈重新拿起剪刀，第一条评论看哭了。</p>
+            <div class="ending-actions">
+              <button class="btn ghost" id="ending-share">生成分享卡</button>
+              <button class="btn primary" id="ending-again">再开一次</button>
+            </div>
+          </div>
+          <div class="ending-survey" id="ending-survey"></div>
+          <div class="ending-foot">Demo 0.1 · 感谢试玩</div>
+        </div>
+      </section>
+
+      <div id="tutorial-banner" class="tutorial-banner hidden"></div>
+      <div id="modal-root"></div>
+      <div id="toast-root"></div>
+      <div id="dialogue-root"></div>
+    </div>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

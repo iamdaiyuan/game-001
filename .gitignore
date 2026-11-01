@@ -1,0 +1,25 @@
+.DS_Store
+node_modules/
+dist/
+coverage/
+*.log
+
+# Cocos Creator
+library/
+temp/
+local/
+build/
+profiles/
+settings/
+native/
+
+# WeChat / Douyin devtools
+project.private.config.json
+.wechat/
+.douyin/
+
+# AI / local
+.env
+.env.*
+!.env.example
+artifacts/

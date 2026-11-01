@@ -1,0 +1,17 @@
+{
+  "name": "@xcyh/core",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "小城烟火 · 平台无关核心逻辑",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "simulate": "tsx scripts/simulate.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}
