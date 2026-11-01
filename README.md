@@ -22,6 +22,7 @@
 ## 目录
 
 ```
+docs/00-environment.md    # 本机工具/环境状态
 docs/                     # 产品、市场、AI 排程文档
 prototype/browser/        # 可玩浏览器原型（设计参照）
 ai/                       # Orchestrator、任务图、Gate、任务包 schema
